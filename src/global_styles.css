@@ -1,0 +1,15 @@
+/* Add application styles & imports to this file! */
+
+.wrapper {
+  font-family: Arial;
+  padding: 0 20%;
+  text-align: center;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.disabled-mode {
+  pointer-events: none;
+}

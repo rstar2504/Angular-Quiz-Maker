@@ -1,0 +1,43 @@
+<section *ngIf="quizQuestions">
+  <div class="question-container" *ngFor="let questionData of quizQuestions">
+    <p class="question-text" [innerHTML]="questionData.question"></p>
+    <ul class="d-flex" [ngClass]="{'disabled-mode': quizDataService.mode === QuizModeEnum.RESULTS}">
+      <li
+        *ngFor="let ans of questionData.allAnswers; let i = index"
+        [innerHTML]="ans"
+        (click)="
+          questionData.selected_answer = ans;
+          questionData.selected_answer_index = i
+        "
+        class="question-answer"
+        [ngClass]="setCellColor(questionData, ans, i)"
+      ></li>
+    </ul>
+  </div>
+
+  <button
+    type="button"
+    *ngIf="quizDataService.mode === QuizModeEnum.QUIZ && showSubmitBtn()"
+    class="question-submit"
+    (click)="quizSubmit()"
+  >
+    Submit
+  </button>
+
+  <ng-container
+    *ngIf="quizDataService.mode === QuizModeEnum.RESULTS && showSubmitBtn()"
+  >
+    <app-quiz-score-strip
+      [allQuestionsCount]="quizQuestions.length"
+    ></app-quiz-score-strip>
+  </ng-container>
+
+  <button
+    type="button"
+    *ngIf="quizDataService.mode === QuizModeEnum.RESULTS && showSubmitBtn()"
+    class="restart-quiz"
+    (click)="resetScreen()"
+  >
+    Create a new quiz
+  </button>
+</section>

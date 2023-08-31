@@ -1,0 +1,38 @@
+<h1>{{ quizDataService.appTitle }}</h1>
+
+<div class="container">
+  <form
+    [formGroup]="quizSearchForm"
+    (ngSubmit)="onSubmit()"
+    *ngIf="!loadingCategories && quizDataService.mode === QuizModeEnum.QUIZ"
+  >
+    <select id="categorySelect" formControlName="category">
+      <option value="" disabled selected>Select a category</option>
+      <option *ngFor="let category of quizCategories" [value]="category.id">
+        {{ category.name }}
+      </option>
+    </select>
+
+    <select id="difficultySelect" formControlName="difficulty">
+      <option value="" disabled selected>Select difficulty</option>
+      <option *ngFor="let level of difficultyLevels" [value]="level">
+        {{ level | titlecase }}
+      </option>
+    </select>
+
+    <button id="createBtn" type="submit" [disabled]="!quizSearchForm.valid">
+      Create
+    </button>
+  </form>
+
+  <!-- Display loader -->
+  <p *ngIf="loadingCategories || loadingAnswers">Loading...</p>
+
+  <!-- Display quiz questions -->
+
+  <ng-container *ngIf="quizQuestions && !loadingAnswers">
+    <app-quiz-mcq-template
+      [quizQuestions]="quizQuestions"
+    ></app-quiz-mcq-template>
+  </ng-container>
+</div>

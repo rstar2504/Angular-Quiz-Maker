@@ -1,0 +1,81 @@
+@mixin action-buttons() {
+  width: 100%;
+  margin: 20px 0;
+  border: 1px solid;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+section {
+  text-align: left;
+
+  .question {
+    &-container {
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .cell {
+        &-default {
+          background-color: white;
+          color: green;
+        }
+
+        &-selected {
+          background-color: lightblue;
+          color: green;
+        }
+
+        &-correct {
+          background-color: green;
+          color: white;
+        }
+
+        &-incorrect {
+          background-color: red;
+          border-color: red;
+          color: white;
+        }
+      }
+    }
+
+    &-text {
+      color: grey;
+    }
+
+    &-answer {
+      padding: 10px;
+      border: 1px solid green;
+      color: green;
+      border-radius: 8px;
+      margin-right: 10px;
+      text-align: center;
+      cursor: pointer;
+
+      &:focus {
+        background: lightblue;
+      }
+    }
+
+    &-submit {
+      @include action-buttons();
+      border-color: darkblue;
+      background-color: darkblue;
+    }
+  }
+
+  .restart-quiz {
+    @include action-buttons();
+    border-color: grey;
+    background-color: grey;
+  }
+}
