@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 export const appRoutes: Routes = [
   {
@@ -19,5 +20,9 @@ export const appRoutes: Routes = [
     path: '',
     redirectTo: 'quiz',
     pathMatch: 'full',
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
   },
 ];
