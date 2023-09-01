@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { QuizScoreStripComponent } from '../quiz-score-strip/quiz-score-strip.component';
-import { AppTitle, QuestionsStructure, QuizMode } from '../../shared/quiz-data.models';
+import { Component, OnInit } from '@angular/core';
+import { QuestionsStructure, QuizMode } from '../../shared/quiz-data.models';
 import { QuizDataService } from '../../shared/quiz-data.service';
 
 @Component({
@@ -9,11 +8,9 @@ import { QuizDataService } from '../../shared/quiz-data.service';
   templateUrl: './quiz-mcq-template.component.html',
   styleUrls: ['./quiz-mcq-template.component.scss'],
   standalone: true,
-  imports: [CommonModule, QuizScoreStripComponent],
+  imports: [CommonModule],
 })
 export class QuizMcqTemplateComponent implements OnInit {
-  @Input() quizQuestions!: Array<QuestionsStructure>;
-
   QuizModeEnum = QuizMode;
   correctCount: number = 0;
 
@@ -44,24 +41,5 @@ export class QuizMcqTemplateComponent implements OnInit {
       default:
         return 'cell-default';
     }
-  }
-
-  quizSubmit() {
-    this.quizDataService.mode = QuizMode.RESULTS;
-    this.quizDataService.appTitle = AppTitle.RESULTS;
-  }
-
-  showSubmitBtn() {
-    return (
-      this.quizQuestions.length &&
-      !this.quizQuestions.find((question) => !question.selected_answer)
-    );
-  }
-
-  resetScreen() {
-    this.quizQuestions = [];
-    this.quizDataService.mode = QuizMode.QUIZ;
-    this.quizDataService.appTitle = AppTitle.QUIZMAKER;
-    this.quizDataService.resetApp();
   }
 }

@@ -1,0 +1,14 @@
+<h1>{{ AppTitleEnum.RESULTS }}</h1>
+
+<div class="container">
+  <app-quiz-mcq-template
+  ></app-quiz-mcq-template>
+
+  <app-quiz-score-strip
+    [allQuestionsCount]="quizDataService.quizQuestions.length"
+  ></app-quiz-score-strip>
+
+  <button type="button" class="restart-quiz" (click)="resetScreen()">
+    Create a new quiz
+  </button>
+</div>

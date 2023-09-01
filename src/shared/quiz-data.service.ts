@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map, Subject } from 'rxjs';
 import {
     AppTitle,
+  QuestionsStructure,
   QuizCategoryResponse,
   QuizMode,
   QuizSelection,
@@ -11,8 +12,8 @@ import {
 @Injectable()
 export class QuizDataService {
   mode: QuizMode = QuizMode.QUIZ;
-  appTitle: string = AppTitle.QUIZMAKER;
-
+  quizQuestions!: Array<QuestionsStructure>;
+  
   appResetNotification = new Subject();
 
   constructor(private http: HttpClient) {}

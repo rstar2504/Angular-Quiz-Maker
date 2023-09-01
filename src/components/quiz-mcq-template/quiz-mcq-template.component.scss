@@ -1,13 +1,3 @@
-@mixin action-buttons() {
-  width: 100%;
-  margin: 20px 0;
-  border: 1px solid;
-  color: white;
-  padding: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
 section {
   text-align: left;
 
@@ -65,17 +55,6 @@ section {
         background: lightblue;
       }
     }
-
-    &-submit {
-      @include action-buttons();
-      border-color: darkblue;
-      background-color: darkblue;
-    }
   }
 
-  .restart-quiz {
-    @include action-buttons();
-    border-color: grey;
-    background-color: grey;
-  }
 }

@@ -1,4 +1,4 @@
-<h1>{{ quizDataService.appTitle }}</h1>
+<h1>{{ AppTitleEnum.QUIZMAKER }}</h1>
 
 <div class="container">
   <form
@@ -20,7 +20,12 @@
       </option>
     </select>
 
-    <button id="createBtn" type="submit" [disabled]="!quizSearchForm.valid">
+    <button
+      id="createBtn"
+      type="submit"
+      class="button-create"
+      [disabled]="!quizSearchForm.valid"
+    >
       Create
     </button>
   </form>
@@ -30,9 +35,16 @@
 
   <!-- Display quiz questions -->
 
-  <ng-container *ngIf="quizQuestions && !loadingAnswers">
-    <app-quiz-mcq-template
-      [quizQuestions]="quizQuestions"
-    ></app-quiz-mcq-template>
+  <ng-container *ngIf="quizDataService.quizQuestions && !loadingAnswers">
+    <app-quiz-mcq-template></app-quiz-mcq-template>
   </ng-container>
+
+  <button
+    type="button"
+    *ngIf="quizDataService.mode === QuizModeEnum.QUIZ && showSubmitBtn()"
+    class="button-submit"
+    (click)="quizSubmit()"
+  >
+    Submit
+  </button>
 </div>

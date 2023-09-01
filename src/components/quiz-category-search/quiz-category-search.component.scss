@@ -1,3 +1,5 @@
+@import '../../shared/app-mixins';
+
 .container {
   form {
     display: flex;
@@ -14,7 +16,10 @@
       }
     }
 
-    button {
+  }
+  
+  .button {
+    &-create {
       background: white;
       border: 1px solid lightblue;
       color: blue;
@@ -22,6 +27,12 @@
       cursor: pointer;
       border-start-end-radius: 5px;
       border-end-end-radius: 5px;
+    }
+
+    &-submit {
+      @include action-buttons();
+      border-color: darkblue;
+      background-color: darkblue;
     }
   }
 }

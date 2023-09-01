@@ -41,7 +41,7 @@
             "main": "src/main.ts",
             "outputPath": "dist/demo",
             "scripts": [],
-            "styles": ["src/global_styles.css"],
+            "styles": ["src/global_styles.scss"],
             "tsConfig": "src/tsconfig.app.json"
           }
         },

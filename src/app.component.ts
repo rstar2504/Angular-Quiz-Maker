@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { QuizDataService } from './shared/quiz-data.service';
 import { QuizCategorySearchComponent } from './components/quiz-category-search/quiz-category-search.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
 
 @Component({
   selector: 'my-app',
@@ -10,7 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     HttpClientModule,
-    QuizCategorySearchComponent
+    AppRoutingModule,
+    QuizCategorySearchComponent,
   ],
   providers: [QuizDataService],
   templateUrl: './app.component.html',
