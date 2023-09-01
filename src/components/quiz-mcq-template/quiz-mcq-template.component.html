@@ -13,10 +13,7 @@
       <li
         *ngFor="let ans of questionData.allAnswers; let i = index"
         [innerHTML]="ans"
-        (click)="
-          questionData.selected_answer = ans;
-          questionData.selected_answer_index = i
-        "
+        (click)="setSelectionDetails(questionData, ans, i)"
         class="question-answer"
         [ngClass]="setCellColor(questionData, ans, i)"
       ></li>

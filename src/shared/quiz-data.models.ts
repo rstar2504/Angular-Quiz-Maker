@@ -13,7 +13,8 @@ export type QuestionsStructure = {
   type: string,
   allAnswers?: Array<string>,
   selected_answer?: string,
-  selected_answer_index?: number
+  selected_answer_index?: number,
+  isCorrect?: boolean
 }
 
 export enum Difficulties {

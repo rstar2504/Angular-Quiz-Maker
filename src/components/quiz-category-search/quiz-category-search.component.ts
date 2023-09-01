@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -9,7 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { QuizMcqTemplateComponent } from '../quiz-mcq-template/quiz-mcq-template.component';
 import {
-    AppTitle,
+  AppTitle,
   Difficulties,
   QuestionsStructure,
   QuizCategoryResponse,
@@ -24,7 +24,7 @@ import { QuizDataService } from '../../shared/quiz-data.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, QuizMcqTemplateComponent],
 })
-export class QuizCategorySearchComponent implements OnInit, OnDestroy {
+export class QuizCategorySearchComponent implements OnInit {
   loadingCategories = false;
   loadingAnswers = false;
 
@@ -39,7 +39,10 @@ export class QuizCategorySearchComponent implements OnInit, OnDestroy {
   appTitle: string = '';
   resetNotifier: any;
 
-  constructor(private router: Router, protected quizDataService: QuizDataService) {}
+  constructor(
+    private router: Router,
+    protected quizDataService: QuizDataService
+  ) {}
 
   ngOnInit() {
     this.getQuizCategories();
@@ -47,12 +50,6 @@ export class QuizCategorySearchComponent implements OnInit, OnDestroy {
       category: new FormControl('', Validators.required),
       difficulty: new FormControl('', Validators.required),
     });
-
-    this.resetNotifier = this.quizDataService.appResetNotification.subscribe(
-      (result) => {
-        this.quizSearchForm.setValue({ category: '', difficulty: '' });
-      }
-    );
   }
 
   getQuizCategories() {
@@ -91,7 +88,8 @@ export class QuizCategorySearchComponent implements OnInit, OnDestroy {
   formatQuestionsData(questionsData: Array<QuestionsStructure>) {
     questionsData.forEach((item: QuestionsStructure, index) => {
       const answersArray = [item.correct_answer, ...item.incorrect_answers];
-      this.quizDataService.quizQuestions[index].allAnswers = this.shuffle(answersArray);
+      this.quizDataService.quizQuestions[index].allAnswers =
+        this.shuffle(answersArray);
     });
   }
 
@@ -101,13 +99,12 @@ export class QuizCategorySearchComponent implements OnInit, OnDestroy {
   }
 
   showSubmitBtn() {
-    return (
-      this.quizDataService.quizQuestions.length &&
-      !this.quizDataService.quizQuestions.find((question) => !question.selected_answer)
-    );
+    return this.quizDataService.quizQuestions
+      ? this.quizDataService.quizQuestions.length &&
+          !this.quizDataService.quizQuestions.find(
+            (question) => !question.selected_answer
+          )
+      : false;
   }
 
-  ngOnDestroy() {
-    this.resetNotifier.unsubscribe();
-  }
 }

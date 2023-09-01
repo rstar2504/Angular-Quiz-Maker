@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, Subject } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import {
-    AppTitle,
   QuestionsStructure,
   QuizCategoryResponse,
   QuizMode,
@@ -13,14 +12,14 @@ import {
 export class QuizDataService {
   mode: QuizMode = QuizMode.QUIZ;
   quizQuestions!: Array<QuestionsStructure>;
-  
-  appResetNotification = new Subject();
+
+  baseApiURL = 'https://opentdb.com/';
 
   constructor(private http: HttpClient) {}
 
   fetchQuizCategories(): Observable<QuizCategoryResponse> {
     return this.http
-      .get<QuizCategoryResponse>('https://opentdb.com/api_category.php')
+      .get<QuizCategoryResponse>(this.baseApiURL + 'api_category.php')
       .pipe(
         map(
           (response: any) =>
@@ -37,14 +36,8 @@ export class QuizDataService {
       ...categorySelection,
       type: 'multiple',
     };
-    return this.http.get('https://opentdb.com/api.php', {
+    return this.http.get(this.baseApiURL + 'api.php', {
       params: requestData,
     });
   }
-
-  resetApp() {
-    this.appResetNotification.next(1);
-    this.appResetNotification.complete();
-  }
-
 }

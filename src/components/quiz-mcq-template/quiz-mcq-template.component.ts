@@ -42,4 +42,15 @@ export class QuizMcqTemplateComponent implements OnInit {
         return 'cell-default';
     }
   }
+
+  setSelectionDetails(
+    questionData: QuestionsStructure,
+    ans: string,
+    index: number
+  ) {
+    questionData.selected_answer = ans;
+    questionData.selected_answer_index = index;
+    questionData.isCorrect =
+      questionData.selected_answer === questionData.correct_answer;
+  }
 }
