@@ -6,6 +6,7 @@ import {
   QuizCategoryResponse,
   QuizMode,
   QuizSelection,
+  totalQuestionsCount,
 } from './quiz-data.models';
 
 @Injectable()
@@ -32,12 +33,17 @@ export class QuizDataService {
 
   fetchQuizQuestions(categorySelection: QuizSelection): Observable<any> {
     const requestData = {
-      amount: 5,
+      amount: totalQuestionsCount,
       ...categorySelection,
       type: 'multiple',
     };
     return this.http.get(this.baseApiURL + 'api.php', {
       params: requestData,
     });
+  }
+
+  resetScreen() {
+    this.quizQuestions = [];
+    this.mode = QuizMode.QUIZ;
   }
 }

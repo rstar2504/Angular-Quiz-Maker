@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuizDataService } from '../../shared/quiz-data.service';
-import { AppTitle, QuizMode } from '../../shared/quiz-data.models';
+import { AppTitle } from '../../shared/quiz-data.models';
 import { QuizMcqTemplateComponent } from '../quiz-mcq-template/quiz-mcq-template.component';
 import { QuizScoreStripComponent } from '../quiz-score-strip/quiz-score-strip.component';
 
@@ -30,9 +30,12 @@ export class QuizResultsComponent implements OnInit {
     }
   }
 
-  resetScreen() {
-    this.quizDataService.quizQuestions = [];
-    this.quizDataService.mode = QuizMode.QUIZ;
+  reset() {
+    this.quizDataService.resetScreen();
     this.router.navigate(['quiz']);
+  }
+
+  ngOnDestroy() {
+    this.quizDataService.resetScreen();
   }
 }

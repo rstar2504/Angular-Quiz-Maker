@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { totalQuestionsCount } from '../../shared/quiz-data.models';
 import { QuizDataService } from '../../shared/quiz-data.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { QuizDataService } from '../../shared/quiz-data.service';
 })
 export class QuizScoreStripComponent implements OnInit {
   correctCount: number = 0;
-  totalQuestions: number = 0;
+  totalQuestions: number = totalQuestionsCount;
 
   finalResultColor: string = '';
 
@@ -22,15 +23,12 @@ export class QuizScoreStripComponent implements OnInit {
   }
 
   correctAnswers() {
-    this.totalQuestions =
-      this.quizDataService.quizQuestions &&
-      this.quizDataService.quizQuestions.length
-        ? this.quizDataService.quizQuestions.length
-        : 0;
+    if (this.quizDataService.quizQuestions) {
+      this.correctCount = this.quizDataService.quizQuestions.filter(
+        (item) => item.isCorrect
+      ).length;
+    }
 
-    this.correctCount = this.quizDataService.quizQuestions.filter(
-      (item) => item.isCorrect
-    ).length;
     this.finalResultColor = this.finalResult(this.correctCount);
   }
 

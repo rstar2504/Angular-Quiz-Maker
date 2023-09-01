@@ -38,3 +38,5 @@ export enum AppTitle {
   'QUIZMAKER' = 'Quiz Maker',
   'RESULTS' = 'RESULTS'
 }
+
+export const totalQuestionsCount = 5;

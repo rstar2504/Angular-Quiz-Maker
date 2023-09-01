@@ -61,7 +61,7 @@ export class QuizCategorySearchComponent implements OnInit {
       },
       (error) => {
         this.loadingCategories = false;
-        console.log('Could not fetch data!');
+        console.log('Could not fetch data! Please try again.');
       }
     );
   }
@@ -71,14 +71,23 @@ export class QuizCategorySearchComponent implements OnInit {
     console.log(this.quizSearchForm.value);
     this.quizDataService
       .fetchQuizQuestions(this.quizSearchForm.value)
-      .subscribe((response) => {
-        console.log('Quiz questions: ', response);
+      .subscribe(
+        (response) => {
+          console.log('Quiz questions: ', response);
 
-        this.quizDataService.quizQuestions = response.results;
-        this.formatQuestionsData(response.results);
-        this.loadingAnswers = false;
-        this.quizDataService.mode = QuizMode.QUIZ;
-      });
+          if (response.results && response.results.length) {
+            this.quizDataService.quizQuestions = response.results;
+            this.formatQuestionsData(response.results);
+          }
+
+          this.loadingAnswers = false;
+          this.quizDataService.mode = QuizMode.QUIZ;
+        },
+        (error) => {
+          this.loadingAnswers = false;
+          console.log('Something went wrong! Please try again.');
+        }
+      );
   }
 
   shuffle = (array: string[]) => {
@@ -106,5 +115,4 @@ export class QuizCategorySearchComponent implements OnInit {
           )
       : false;
   }
-
 }
