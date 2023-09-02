@@ -37,7 +37,6 @@ export class QuizCategorySearchComponent implements OnInit {
   AppTitleEnum = AppTitle;
 
   appTitle: string = '';
-  resetNotifier: any;
 
   constructor(
     private router: Router,
@@ -66,22 +65,19 @@ export class QuizCategorySearchComponent implements OnInit {
     );
   }
 
-  onSubmit() {
+  createQuiz() {
     this.loadingAnswers = true;
-    console.log(this.quizSearchForm.value);
+    this.quizDataService.mode = QuizMode.QUIZ;
     this.quizDataService
       .fetchQuizQuestions(this.quizSearchForm.value)
       .subscribe(
         (response) => {
-          console.log('Quiz questions: ', response);
-
           if (response.results && response.results.length) {
             this.quizDataService.quizQuestions = response.results;
             this.formatQuestionsData(response.results);
           }
 
           this.loadingAnswers = false;
-          this.quizDataService.mode = QuizMode.QUIZ;
         },
         (error) => {
           this.loadingAnswers = false;

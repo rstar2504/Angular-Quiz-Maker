@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import {
   QuestionsStructure,
+  QuizCategoriesInitialResponse,
   QuizCategoryResponse,
   QuizMode,
   QuizSelection,
@@ -31,13 +32,13 @@ export class QuizDataService {
       );
   }
 
-  fetchQuizQuestions(categorySelection: QuizSelection): Observable<any> {
+  fetchQuizQuestions(categorySelection: QuizSelection): Observable<Array<QuestionsStructure>> {
     const requestData = {
       amount: totalQuestionsCount,
       ...categorySelection,
       type: 'multiple',
     };
-    return this.http.get(this.baseApiURL + 'api.php', {
+    return this.http.get<Array<QuestionsStructure>>(this.baseApiURL + 'api.php', {
       params: requestData,
     });
   }

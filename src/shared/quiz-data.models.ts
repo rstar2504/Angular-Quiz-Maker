@@ -2,7 +2,12 @@ export type QuizCategory = {id: number, name: 'string'};
 
 export type QuizCategoryResponse = Array<QuizCategory>;
 
+export type QuizCategoriesInitialResponse = {
+  'trivia_categories': QuizCategoryResponse
+}
 export type QuizSelection = {category: number, difficulty: string};
+
+export type QuizCategoryResponseType = QuizCategoryResponse | QuizCategoriesInitialResponse;
 
 export type QuestionsStructure = {
   category: string,

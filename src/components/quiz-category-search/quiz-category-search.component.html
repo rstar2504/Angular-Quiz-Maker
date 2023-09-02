@@ -3,7 +3,7 @@
 <div class="container">
   <form
     [formGroup]="quizSearchForm"
-    (ngSubmit)="onSubmit()"
+    (ngSubmit)="createQuiz()"
     *ngIf="!loadingCategories && quizDataService.mode === QuizModeEnum.QUIZ"
   >
     <select id="categorySelect" formControlName="category">
