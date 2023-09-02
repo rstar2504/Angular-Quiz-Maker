@@ -11,6 +11,4 @@ import { QuizDataService } from './shared/quiz-data.service';
   providers: [QuizDataService],
   templateUrl: './app.component.html',
 })
-export class App {
-  name = 'Angular';
-}
+export class App {}
