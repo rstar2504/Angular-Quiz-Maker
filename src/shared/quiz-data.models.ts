@@ -7,10 +7,6 @@ export type QuizCategoriesInitialResponse = {
 };
 export type QuizSelection = { category: number; difficulty: string };
 
-export type QuizCategoryResponseType =
-  | QuizCategoryResponse
-  | QuizCategoriesInitialResponse;
-
 export type QuizQuestionsAPIResponse = {
   response_code: number;
   results: Array<QuestionsStructure>;

@@ -14,6 +14,7 @@ import {
   QuestionsStructure,
   QuizCategoryResponse,
   QuizMode,
+  QuizQuestionsAPIResponse,
 } from '../../shared/quiz-data.models';
 import { QuizDataService } from '../../shared/quiz-data.service';
 
@@ -25,13 +26,17 @@ import { QuizDataService } from '../../shared/quiz-data.service';
   imports: [CommonModule, ReactiveFormsModule, QuizMcqTemplateComponent],
 })
 export class QuizCategorySearchComponent implements OnInit {
-  loadingCategories = false;
-  loadingAnswers = false;
+  loadingCategories: boolean = false;
+  loadingAnswers: boolean = false;
 
   quizCategories!: QuizCategoryResponse;
   quizSearchForm!: FormGroup;
 
-  difficultyLevels = [Difficulties.EASY, Difficulties.MED, Difficulties.HARD];
+  difficultyLevels: Array<Difficulties> = [
+    Difficulties.EASY,
+    Difficulties.MED,
+    Difficulties.HARD,
+  ];
 
   QuizModeEnum = QuizMode;
   AppTitleEnum = AppTitle;
@@ -58,9 +63,12 @@ export class QuizCategorySearchComponent implements OnInit {
         this.quizCategories = data;
         this.loadingCategories = false;
       },
-      (error) => {
+      (error: Error) => {
         this.loadingCategories = false;
-        console.log('Could not fetch data! Please try again.');
+        console.log(
+          'Could not fetch data! Please try again. Details:',
+          error.message
+        );
       }
     );
   }
@@ -71,7 +79,7 @@ export class QuizCategorySearchComponent implements OnInit {
     this.quizDataService
       .fetchQuizQuestions(this.quizSearchForm.value)
       .subscribe(
-        (response) => {
+        (response: QuizQuestionsAPIResponse) => {
           if (response.results && response.results.length) {
             this.quizDataService.quizQuestions = response.results;
             this.formatQuestionsData(response.results);
@@ -79,14 +87,18 @@ export class QuizCategorySearchComponent implements OnInit {
 
           this.loadingAnswers = false;
         },
-        (error) => {
+        (error: Error) => {
           this.loadingAnswers = false;
-          console.log('Something went wrong! Please try again.');
+          console.log(
+            'Something went wrong! Please try again. Detail:',
+            error.message
+          );
         }
       );
   }
 
   shuffle = (array: string[]) => {
+    // randomly sort array of answers
     return array.sort(() => Math.random() - 0.5);
   };
 
