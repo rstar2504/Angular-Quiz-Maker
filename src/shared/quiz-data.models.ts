@@ -1,47 +1,54 @@
-export type QuizCategory = {id: number, name: 'string'};
+export type QuizCategory = { id: number; name: 'string' };
 
 export type QuizCategoryResponse = Array<QuizCategory>;
 
 export type QuizCategoriesInitialResponse = {
-  'trivia_categories': QuizCategoryResponse
-}
-export type QuizSelection = {category: number, difficulty: string};
+  trivia_categories: QuizCategoryResponse;
+};
+export type QuizSelection = { category: number; difficulty: string };
 
-export type QuizCategoryResponseType = QuizCategoryResponse | QuizCategoriesInitialResponse;
+export type QuizCategoryResponseType =
+  | QuizCategoryResponse
+  | QuizCategoriesInitialResponse;
+
+export type QuizQuestionsAPIResponse = {
+  response_code: number;
+  results: Array<QuestionsStructure>;
+};
 
 export type QuestionsStructure = {
-  category: string,
-  correct_answer: string,
-  difficulty: string,
-  incorrect_answers: Array<string>,
-  question: string,
-  type: string,
-  allAnswers?: Array<string>,
-  selected_answer?: string,
-  selected_answer_index?: number,
-  isCorrect?: boolean
-}
+  category: string;
+  correct_answer: string;
+  difficulty: string;
+  incorrect_answers: Array<string>;
+  question: string;
+  type: string;
+  allAnswers?: Array<string>;
+  selected_answer?: string;
+  selected_answer_index?: number;
+  isCorrect?: boolean;
+};
 
 export enum Difficulties {
   'EASY' = 'easy',
   'MED' = 'medium',
-  'HARD' = 'hard'
+  'HARD' = 'hard',
 }
 
 export enum QuizMode {
   'QUIZ',
-  'RESULTS'
+  'RESULTS',
 }
 
 export enum CellColors {
   'SELECTED' = 'lightblue',
   'CORRECT' = 'green',
-  'INCORRECT' = 'red'
+  'INCORRECT' = 'red',
 }
 
 export enum AppTitle {
   'QUIZMAKER' = 'Quiz Maker',
-  'RESULTS' = 'RESULTS'
+  'RESULTS' = 'RESULTS',
 }
 
 export const totalQuestionsCount = 5;

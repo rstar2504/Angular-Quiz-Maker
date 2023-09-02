@@ -6,6 +6,7 @@ import {
   QuizCategoriesInitialResponse,
   QuizCategoryResponse,
   QuizMode,
+  QuizQuestionsAPIResponse,
   QuizSelection,
   totalQuestionsCount,
 } from './quiz-data.models';
@@ -19,26 +20,21 @@ export class QuizDataService {
 
   constructor(private http: HttpClient) {}
 
-  fetchQuizCategories(): Observable<QuizCategoryResponse> {
-    return this.http
-      .get<QuizCategoryResponse>(this.baseApiURL + 'api_category.php')
-      .pipe(
-        map(
-          (response: any) =>
-            (response = response.trivia_categories
-              ? response.trivia_categories
-              : [])
-        )
-      );
+  getQuizCategories(): Observable<QuizCategoriesInitialResponse> {
+    return this.http.get<QuizCategoriesInitialResponse>(this.baseApiURL + 'api_category.php');
   }
 
-  fetchQuizQuestions(categorySelection: QuizSelection): Observable<Array<QuestionsStructure>> {
+  fetchQuizCategories(): Observable<QuizCategoryResponse> {
+    return this.getQuizCategories().pipe(map(response => response.trivia_categories ? response.trivia_categories : []));
+  }
+
+  fetchQuizQuestions(categorySelection: QuizSelection): Observable<QuizQuestionsAPIResponse> {
     const requestData = {
       amount: totalQuestionsCount,
       ...categorySelection,
       type: 'multiple',
     };
-    return this.http.get<Array<QuestionsStructure>>(this.baseApiURL + 'api.php', {
+    return this.http.get<QuizQuestionsAPIResponse>(this.baseApiURL + 'api.php', {
       params: requestData,
     });
   }
